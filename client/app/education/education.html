@@ -1,0 +1,37 @@
+<div class="container" xmlns="http://www.w3.org/1999/html">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">Education:</h1>
+      <ul class="nav nav-tabs" ng-repeat="education in eduCtrl.educationList">
+        <li class="nav-item">
+          <a ui-sref="education({educationId: education._id})" uib-tooltip="{{education.fieldOfStudy}}">{{education.institution}}</a><button type="button" class="glyphicon glyphicon-edit" ng-click="eduCtrl.showEdu(education)">edit</button>
+            <button type="button" class="glyphicon glyphicon-remove" ng-click="eduCtrl.deleteEdu(education)">delete</button>
+        </li></ul>
+    </div>
+    <div>
+
+      <li>institution: {{eduCtrl.education.institution}}</li>
+      <li>fieldOfStudy: {{eduCtrl.education.fieldOfStudy}}</li>
+      <li>fsStartDate: {{eduCtrl.education.fsStartDate}}</li>
+      <li>fsFinishDate: {{eduCtrl.education.fsFinishDate}}</li>
+      <li>certTitle: {{eduCtrl.education.certTitle}}</li>
+      <button type="button" class="update" ng-click="eduCtrl.confirmTest()">CONFIRM</button>
+    </div>
+
+    <form class="education-form">
+      <label>Syncs in realtime across clientsssss</label>
+      <p class="input-group">
+        <input type="text" class="form-control" placeholder="Name of institution" ng-model="eduCtrl.education.institution">
+        <input type="text" class="form-control" placeholder="Field of Study" ng-model="eduCtrl.education.fieldOfStudy">
+        <input type="text" class="form-control" placeholder="Start Month YYYY" ng-model="eduCtrl.education.fsStartDate">
+        <input type="text" class="form-control" placeholder="Finish Month YYYY or Present" ng-model="eduCtrl.education.fsFinishDate">
+        <input type="text" class="form-control" placeholder="Certificate title/more details" ng-model="eduCtrl.education.certTitle">
+      <span class="input-group-btn">
+        <button type="submit" class="btn btn-primary" ng-click="eduCtrl.updateEdu(eduCtrl.education)">update/add</button>
+      </span>
+      </p>
+    </form>
+  </div>
+</div>
+
+
