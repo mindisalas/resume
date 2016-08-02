@@ -8,7 +8,7 @@
 //end-non-standard
     $onInit($scope) {
 
-      return console.log("got to init of education controller //todo " + this.education );  //todo remove
+      return console.log("got to init of education controller
     }
   }
 

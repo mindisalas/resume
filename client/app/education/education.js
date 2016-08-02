@@ -6,7 +6,7 @@ angular.module('resumeApp')
       .state('education', {
         url: '/education/:educationId',
         templateUrl: 'app/education/education.html',
-        controller: function($stateParams,$http, $scope, socket) {
+        controller: function($stateParams,$http, $scope, socket, Modal) {
           this.$http = $http;
           this.socket = socket;
           this.educationList = [];
@@ -16,25 +16,64 @@ angular.module('resumeApp')
             .then(response => {
               this.educationList = response.data;
               this.socket.syncUpdates('education', this.educationList);
-              console.log("StatParams: " + $stateParams + ", Education = " + this.educationList);
+              console.dir("StatParams: " + $stateParams + ", Education = " + this.educationList);
               console.log(this.educationList)
             });
-          this.deleteEdu = function(edu) {
-            this.doIt = confirm("Are you sure you want to delete " + edu.institution + " from the Education list?");
-            console.log(this.doIt);
-            if (this.doIt) {
-              this.$http.delete('/api/educations/' + edu._id)
-              return console.log("got to deleteEdu //todo"); //todo remove the console log here
+          this.deleteEdu = Modal.confirm.delete(education => {
+            this.$http.delete('/api/educations/' + education._id);
+          });
+
+          this.showEduX = function(edu) {
+            this.$http.get('/api/educations/' + edu._id)
+              .then(response => {this.education=response.data;});
+            Modal.edit.editShow(this.education);
+          };
+          this.showEdu = Modal.edit.editShow(education => {
+            if (education._id) {
+              this.$http.put('/api/educations/' + education._id, education);
+              console.log(education);
+            } else {
+              if (education.institution) {
+                this.$http.post('/api/educations', {
+                  institution: education.institution,
+                  fieldOfStudy: education.fieldOfStudy,
+                  fsStartDate: education.fsStartDate,
+                  fsFinishDate: education.fsFinishDate,
+                  certTitle: education.certTitle
+                });
+                this.newEduInstitution = '';
+                this.newEduFofS = '';
+                this.newEduStart = '';
+                this.newEduFinish = '';
+                this.newEduCert = ''
+              }
             }
-          };
-          this.confirmTest = function() {
-            this.whot = confirm('got it');
-            console.log(this.whot);
-          };
-          this.showEdu = function(edu) {
-           this.$http.get('/api/educations/' + edu._id)
-             .then(response => {this.education=response.data;});
-          };
+          });
+          this.addEdu = Modal.edit.editShow(education => {
+            if (education._id) {
+              this.$http.put('/api/educations/' + education._id, education);
+              console.log(education);
+            } else {
+              if (education.institution) {
+                this.$http.post('/api/educations', {
+                  institution: education.institution,
+                  fieldOfStudy: education.fieldOfStudy,
+                  fsStartDate: education.fsStartDate,
+                  fsFinishDate: education.fsFinishDate,
+                  certTitle: education.certTitle
+                });
+                this.newEduInstitution = '';
+                this.newEduFofS = '';
+                this.newEduStart = '';
+                this.newEduFinish = '';
+                this.newEduCert = ''
+              }
+            }
+          });
+/*          (edu => {
+            this.$http.get('/api/educations/' + edu._id)
+              .then(response => {this.education=response.data;});
+          });*/
           this.updateEdu = function(edu) {
             if (edu._id) {
               this.$http.put('/api/educations/' + edu._id, edu);
@@ -57,6 +96,17 @@ angular.module('resumeApp')
             }
 
           };
+          this.look = Modal.test.test1();
+          console.info("this.openModal");
+          console.log(this.openModal);
+
+          /*function(edu) {
+           this.education = edu;
+           this.whot = confirm('got it');
+           console.log(this.education);
+
+           console.log("modal.test.test1 results: " + " end2");
+           };*/
 
 
           console.info($stateParams);

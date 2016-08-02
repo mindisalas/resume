@@ -4,22 +4,26 @@
       <h1 class="page-header">Education:</h1>
       <ul class="nav nav-tabs" ng-repeat="education in eduCtrl.educationList">
         <li class="nav-item">
-          <a ui-sref="education({educationId: education._id})" uib-tooltip="{{education.fieldOfStudy}}">{{education.institution}}</a><button type="button" class="glyphicon glyphicon-edit" ng-click="eduCtrl.showEdu(education)">edit</button>
-            <button type="button" class="glyphicon glyphicon-remove" ng-click="eduCtrl.deleteEdu(education)">delete</button>
+          <a ui-sref="education({educationId: education._id})" uib-tooltip="{{education.fieldOfStudy}}">{{education.institution}}
+            <button type="button" class="glyphicon glyphicon-edit" ng-click="eduCtrl.showEdu(education)"></button>
+            <button type="button" class="glyphicon glyphicon-remove" ng-click="eduCtrl.deleteEdu(education.institution, education)"></button></a>
         </li></ul>
     </div>
-    <div>
+    <!--<div>-->
 
-      <li>institution: {{eduCtrl.education.institution}}</li>
-      <li>fieldOfStudy: {{eduCtrl.education.fieldOfStudy}}</li>
-      <li>fsStartDate: {{eduCtrl.education.fsStartDate}}</li>
-      <li>fsFinishDate: {{eduCtrl.education.fsFinishDate}}</li>
-      <li>certTitle: {{eduCtrl.education.certTitle}}</li>
-      <button type="button" class="update" ng-click="eduCtrl.confirmTest()">CONFIRM</button>
-    </div>
-    C:\Users\Mindi\Documents\GitHub\resume
-    <form class="education-form">
-      <label>Syncs in realtime across clientsssss</label>
+      <!--<li>institution: {{eduCtrl.education.institution}}</li>-->
+      <!--<li>fieldOfStudy: {{eduCtrl.education.fieldOfStudy}}</li>-->
+      <!--<li>fsStartDate: {{eduCtrl.education.fsStartDate}}</li>-->
+      <!--<li>fsFinishDate: {{eduCtrl.education.fsFinishDate}}</li>-->
+      <!--<li>certTitle: {{eduCtrl.education.certTitle}}</li>-->
+      <button type="button" class="update" ng-click="eduCtrl.showEdu({})">Add</button>
+    <!--</div>-->
+    <!--<div modal="showModal">modal</div>-->
+
+    <br>
+    <br>
+    <form class="education-form hidden">
+      <label>Add a new Education Entry:</label>
       <p class="input-group">
         <input type="text" class="form-control" placeholder="Name of institution" ng-model="eduCtrl.education.institution">
         <input type="text" class="form-control" placeholder="Field of Study" ng-model="eduCtrl.education.fieldOfStudy">
@@ -27,7 +31,7 @@
         <input type="text" class="form-control" placeholder="Finish Month YYYY or Present" ng-model="eduCtrl.education.fsFinishDate">
         <input type="text" class="form-control" placeholder="Certificate title/more details" ng-model="eduCtrl.education.certTitle">
       <span class="input-group-btn">
-        <button type="submit" class="btn btn-primary" ng-click="eduCtrl.updateEdu(eduCtrl.education)">update/add</button>
+        <button type="submit" class="btn btn-primary" ng-click="eduCtrl.updateEdu(eduCtrl.education)">add</button>
       </span>
       </p>
     </form>
