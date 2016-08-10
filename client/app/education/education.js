@@ -12,6 +12,22 @@ angular.module('resumeApp')
           this.educationList = [];
           this.education = {};
           //get all the records
+
+          this.myData = [
+            {
+              "institution": "Advanced Auto Parts",
+              "fieldOfStudy": "3633 S 9th St",
+              "fsStartDate": "Salina",
+              "fsFinishDate": "KS",
+              "certTitle": "67401"
+            }, {
+              "institution": "Arrow Speed Shop",
+              "fieldOfStudy": "686 S Adams",
+              "fsStartDate": "Kansas City",
+              "fsFinishDate": "KS",
+              "certTitle": "66105"
+            } ];
+
           this.$http.get('/api/educations')
             .then(response => {
               this.educationList = response.data;

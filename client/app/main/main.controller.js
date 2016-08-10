@@ -10,6 +10,7 @@
       this.awesomeThings = [];
       this.educationList = [];
 
+
       $scope.$on('$destroy', function() {
         socket.unsyncUpdates('thing');
         socket.unsyncUpdates('education');
@@ -31,7 +32,7 @@
       return console.log("got to init of ythings and educations //todo");
     }
 
-    addThing() {
+        addThing() {
       if (this.newThing) {
         this.$http.post('/api/things', {
           name: this.newThing,
