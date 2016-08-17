@@ -1,58 +1,33 @@
+<!--ng-controller="GridCtrl as gridOpt">-->
 
 
-  <!--<body ng-app="resumeApp">-->
-  <!--ng-controller="GridCtrl as vmx">-->
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title pull-left">Education List</h3>
-        <button class="btn btn-xs btn-icon btn-success pull-right" uib-tooltip="Add Record" tooltip-placement="right" ng-click="vm.addRow()">
+<div class="panel panel-primary" ng-controller="GridCtrl as gridOpt">
+  <div class="panel-heading">
+    <h3 class="panel-title pull-left">Education List</h3>
+    <button class="btn btn-xs btn-icon btn-success pull-right" uib-tooltip="Add Record" tooltip-placement="right"
+            ng-click="gridOpt.addRow()">
           <span class="glyphicon glyphicon-plus">
           </span>
+    </button>
+    <div class="clearfix"></div>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-sm-4">
+        <button type="button" class="btn btn-success" ng-disabled="!gridOpt.gridApi.grid.options.multiSelect"
+                ng-click="gridOpt.selectAll()">Select All
         </button>
-        <div class="clearfix"></div>
+        <button type="button" uib-tooltip="Clear All" class="btn btn-success" ng-click="gridOpt.clearAll()">Clear All
+        </button>
       </div>
-      <div class="panel-body">
-        <div class="row">
-          <div class="col-sm-4">
-          <button type="button" class="btn btn-success" ng-disabled="!vm.gridApi.grid.options.multiSelect" ng-click="vm.selectAll()">Select All</button>
-          <button type="button" uib-tooltip="Clear All" class="btn btn-success" ng-click="vm.clearAll()">Clear All</button>
-          </div>
-<!--          <div class="col-sm-offset-6 col-sm-2">
-          <button type="button" id="addRow" class="btn btn-success" ng-click="vm.addRow()">Add Record</button>
-          </div>
--->
-        </div>
-
-      </div>
-        <div ui-grid="vmx.gridOptions" ui-grid-selection ui-grid-exporter class="grid"></div>
-        <!--<div ui-grid="{data: vmx.myData}" class="grid"></div>-->
+      <!--          <div class="col-sm-offset-6 col-sm-2">
+                <button type="button" id="addRow" class="btn btn-success" ng-click="gridOpt.addRow()">Add Record</button>
+                </div>
+      -->
     </div>
 
-  <!--</body>-->
-<!--<!DOCTYPE html>
-<html>
+  </div>
+  <div ui-grid="gridOpt.gridOptions" ui-grid-selection ui-grid-exporter class="grid"></div>
+  <!--<div ui-grid="{data: gridOpt.myData}" class="grid"></div>-->
+</div>
 
-  <head>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-sanitize.js"></script>
-    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.3.2.js"></script>
-    <script data-require="angular-ui@0.4.0" data-semver="0.4.0" src="https://rawgithub.com/angular-ui/angular-ui/master/build/angular-ui.js"></script>
-    <script data-require="angular-touch@*" data-semver="1.4.3" src="https://code.angularjs.org/1.4.3/angular-touch.js"></script>
-    <link data-require="bootstrap-css@3.3.4" data-semver="3.3.6" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" />
-    <script src="https://rawgit.com/gkindel/CSV-JS/master/csv.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.20/pdfmake.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.20/vfs_fonts.js"></script>
-    <link data-require="ui-grid@*" data-semver="3.0.7" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/3.0.7/ui-grid.css" />
-    <script data-require="ui-grid@*" data-semver="3.0.7" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/3.0.7/ui-grid.js"></script>
-    <link rel="stylesheet" href="style.css" />
-
-    <script data-require="jquery@2.1.3" data-semver="2.1.3" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-    <script src="https://cdn.rawgit.com/mike-marcacci/objectpath/v1.1.0/lib/ObjectPath.js"></script>
-    <script src="https://cdn.rawgit.com/geraintluff/tv4/v1.1.9/tv4.min.js"></script>
-    <script src="https://cdn.rawgit.com/Textalk/angular-schema-form/0.8.0/dist/schema-form.js"></script>
-    <script src="https://cdn.rawgit.com/Textalk/angular-schema-form/0.8.0/dist/bootstrap-decorator.js"></script>
-
-    <script src="script.js"></script>
-  </head>
-</html>-->

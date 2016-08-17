@@ -29,7 +29,8 @@
 
   <div class="row">
     <div class="col-lg-12">
-      <h1 class="page-header">Education:</h1>
+      <h1 ui-sref="education" class="page-header">Education:</h1>
+      //todo if user = admin then ui-sref="education" for "Edit Education button
       <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="education in $ctrl.educationList">
         <li><a ui-sref="education({educationId: education._id})" uib-tooltip="{{education.fieldOfStudy}}">{{education.institution}}<button type="button" class="close" ng-click="$ctrl.deleteEdu(education)">&times;</button></a></li>
       </ul>

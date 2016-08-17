@@ -3,10 +3,10 @@
       <h3 class="modal-title">Add/Edit</h3>
   </div>
   <div class="modal-body">
-    <form name="addressForm" sf-schema="vm.schema" sf-form="vm.form" sf-model="vm.entity"></form>
+    <form name="eduForm" sf-schema="editRow.schema" sf-form="editRow.form" sf-model="editRow.entity"></form>
   </div>
   <div class="modal-footer">
-      <button class="btn btn-success" ng-click="vm.save(addressForm)">Save</button>
+      <button class="btn btn-success" ng-click="editRow.save(eduForm)">Save</button>
       <button class="btn btn-warning" ng-click="$close()">Cancel</button>
   </div>
 </div>

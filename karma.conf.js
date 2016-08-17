@@ -28,6 +28,7 @@ module.exports = function(config) {
       'client/bower_components/angular-schema-form/dist/bootstrap-decorator.js',
       'client/bower_components/angular-touch/angular-touch.js',
       'client/bower_components/angular-animate/angular-animate.js',
+      'client/bower_components/angular-ui-grid/ui-grid.js',
       'client/bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'node_modules/socket.io-client/socket.io.js',

@@ -7,81 +7,90 @@ angular.module('resumeApp')
 //'ngAnimate', 'ui.bootstrap', 'schemaForm']);
 
 
+  .controller('GridCtrl', GridCtrl)
 
 
-.controller('GridCtrl', GridCtrl)
+//GridCtrl.$inject = ['$http', '$scope', 'socket', 'uiGridConstants', 'RowEditor'];
 
 
-GridCtrl.$inject = ['$scope', 'uiGridConstants', '$http', 'RowEditor'];
+function GridCtrl($http, $scope, socket, uiGridConstants, RowEditor, Modal) {
+  this.$http = $http;
+  this.socket = socket;
+  this.editRow = RowEditor.editRow;
+  this.Modal = Modal;
+  this.group = '/api/education';
+  this.type = 'education'
 
-function GridCtrl($scope, uiGridConstants, $http, RowEditor, eduCtrl) {
-  var vm = this;
+  //get list of education entries for the grid
+  // this.$http.get('/api/educations')
+  this.$http.get(this.group + 's')
+    .then(response => {
+      this.gridOptions.data = response.data;
+    });
 
-  vm.editRow = RowEditor.editRow;
+  /*  this.educationList = [{
+   "institution": "Advanced Auto Parts",
+   "fieldOfStudy": "3633 S 9th St",
+   "fsStartDate": "Salina",
+   "fsFinishDate": "KS",
+   "certTitle": "67401"
+   }, {
+   "institution": "Arrow Speed Shop",
+   "fieldOfStudy": "686 S Adams",
+   "fsStartDate": "Kansas City",
+   "fsFinishDate": "KS",
+   "certTitle": "66105"
+   }, {
+   "institution": "Carl Quiroga",
+   "fieldOfStudy": "10990 Roe Ave",
+   "fsStartDate": "Overland Park",
+   "fsFinishDate": "KS",
+   "certTitle": "66211"
+   }, {
+   "institution": "E Q Muffler",
+   "fieldOfStudy": "1002 Kansas St",
+   "fsStartDate": "Great Bend",
+   "fsFinishDate": "KS",
+   "certTitle": "67530"
+   }, {
+   "institution": "Extended Outage Verification Test",
+   "fieldOfStudy": "10990 Roe Ave",
+   "fsStartDate": "Overland Park",
+   "fsFinishDate": "KS",
+   "certTitle": "66211"
+   }, {
+   "institution": "Fred Fisher",
+   "fieldOfStudy": "80 S Yucca Path",
+   "fsStartDate": "Garden City",
+   "fsFinishDate": "KS",
+   "certTitle": "66538"
+   }, {
+   "institution": "Heinen True Value",
+   "fieldOfStudy": "307 Main",
+   "fsStartDate": "Seneca",
+   "fsFinishDate": "KS",
+   "certTitle": "66538"
+   }, {
+   "institution": "Keystone Automotive Midwest",
+   "fieldOfStudy": "90 Shawnee Ave",
+   "fsStartDate": "Kansas City",
+   "fsFinishDate": "KS",
+   "certTitle": "66105"
+   }, {
+   "institution": "Keystone Automotive Rail",
+   "fieldOfStudy": "Marketing",
+   "fsStartDate": "Kansas City",
+   "fsFinishDate": "KS",
+   "certTitle": "66105"
+   }, {
+   "institution": "Lane's Company",
+   "fieldOfStudy": "10990 Roe Ave",
+   "fsStartDate": "Overland Park",
+   "fsFinishDate": "KS",
+   "certTitle": "66211"
+   } ];*/
 
-  vm.myData = [{
-    "institution": "Advanced Auto Parts",
-    "fieldOfStudy": "3633 S 9th St",
-    "fsStartDate": "Salina",
-    "fsFinishDate": "KS",
-    "certTitle": "67401"
-  }, {
-    "institution": "Arrow Speed Shop",
-    "fieldOfStudy": "686 S Adams",
-    "fsStartDate": "Kansas City",
-    "fsFinishDate": "KS",
-    "certTitle": "66105"
-  }, {
-    "institution": "Carl Quiroga",
-    "fieldOfStudy": "10990 Roe Ave",
-    "fsStartDate": "Overland Park",
-    "fsFinishDate": "KS",
-    "certTitle": "66211"
-  }, {
-    "institution": "E Q Muffler",
-    "fieldOfStudy": "1002 Kansas St",
-    "fsStartDate": "Great Bend",
-    "fsFinishDate": "KS",
-    "certTitle": "67530"
-  }, {
-    "institution": "Extended Outage Verification Test",
-    "fieldOfStudy": "10990 Roe Ave",
-    "fsStartDate": "Overland Park",
-    "fsFinishDate": "KS",
-    "certTitle": "66211"
-  }, {
-    "institution": "Fred Fisher",
-    "fieldOfStudy": "80 S Yucca Path",
-    "fsStartDate": "Garden City",
-    "fsFinishDate": "KS",
-    "certTitle": "66538"
-  }, {
-    "institution": "Heinen True Value",
-    "fieldOfStudy": "307 Main",
-    "fsStartDate": "Seneca",
-    "fsFinishDate": "KS",
-    "certTitle": "66538"
-  }, {
-    "institution": "Keystone Automotive Midwest",
-    "fieldOfStudy": "90 Shawnee Ave",
-    "fsStartDate": "Kansas City",
-    "fsFinishDate": "KS",
-    "certTitle": "66105"
-  }, {
-    "institution": "Keystone Automotive Rail",
-    "fieldOfStudy": "Marketing",
-    "fsStartDate": "Kansas City",
-    "fsFinishDate": "KS",
-    "certTitle": "66105"
-  }, {
-    "institution": "Lane's Company",
-    "fieldOfStudy": "10990 Roe Ave",
-    "fsStartDate": "Overland Park",
-    "fsFinishDate": "KS",
-    "certTitle": "66211"
-  } ];
-
-  vm.highlightFilteredHeader = function(row, rowRenderIndex, col, colRenderIndex) {
+  this.highlightFilteredHeader = function (row, rowRenderIndex, col, colRenderIndex) {
     if (col.filters[0].term) {
       return 'header-filtered';
     } else {
@@ -89,23 +98,23 @@ function GridCtrl($scope, uiGridConstants, $http, RowEditor, eduCtrl) {
     }
   };
 
-  vm.selectAll = function() {
-    vm.gridApi.selection.selectAllRows();
+  this.selectAll = function () {
+    this.gridApi.selection.selectAllRows();
   };
 
-  vm.clearAll = function() {
-    vm.gridApi.selection.clearSelectedRows();
+  this.clearAll = function () {
+    this.gridApi.selection.clearSelectedRows();
   };
 
-
-  vm.gridOptions = {
+  //todo import PDF maker
+  this.gridOptions = {
     enableRowSelection: true,
     enableSelectAll: true,
     multiSelect: true,
     selectionRowHeaderWidth: 35,
     rowHeight: 35,
     enableGridMenu: true,
-    exporterCsvFilename: 'eduBook.csv',
+    exporterCsvFilename: this.type + 'Book.csv',
     exporterPdfTableStyle: {
       margin: [30, 30, 30, 30]
     },
@@ -116,16 +125,16 @@ function GridCtrl($scope, uiGridConstants, $http, RowEditor, eduCtrl) {
       color: 'red'
     },
     exporterPdfHeader: {
-      text: "Resume Edu Book",
+      text: "Resume " + this.type + " Book",
       style: 'headerStyle'
     },
-    exporterPdfFooter: function(currentPage, pageCount) {
+    exporterPdfFooter: function (currentPage, pageCount) {
       return {
         text: currentPage.toString() + ' of ' + pageCount.toString(),
         style: 'footerStyle'
       };
     },
-    exporterPdfCustomFormatter: function(docDefinition) {
+    exporterPdfCustomFormatter: function (docDefinition) {
       docDefinition.styles.headerStyle = {
         fontSize: 22,
         bold: true
@@ -140,8 +149,8 @@ function GridCtrl($scope, uiGridConstants, $http, RowEditor, eduCtrl) {
     exporterPdfPageSize: 'LETTER',
     exporterPdfMaxGridWidth: 500,
     enableFiltering: true,
-    data: vm.myData,
-    /*data: eduCtrl.educationList,*/
+    /*    data: this.educationList,*/
+    /*   data: educationController.educationList,*/
     showGridFooter: true,
     columnDefs: [{
       name: 'modify',
@@ -153,21 +162,26 @@ function GridCtrl($scope, uiGridConstants, $http, RowEditor, eduCtrl) {
       cellTemplate: 'app/grid/edit-button.html'
     }, {
       field: 'institution',
-      headerCellClass: vm.highlightFilteredHeader
+      headerCellClass: this.highlightFilteredHeader
     }, {
       field: 'fieldOfStudy',
-      headerCellClass: vm.highlightFilteredHeader
+      headerCellClass: this.highlightFilteredHeader
     }, {
       field: 'fsStartDate',
-      headerCellClass: vm.highlightFilteredHeader
+      headerCellClass: this.highlightFilteredHeader
     }, {
       field: 'fsFinishDate',
       displayName: 'Finish Date',
-      headerCellClass: vm.highlightFilteredHeader
+      headerCellClass: this.highlightFilteredHeader
     }, {
       field: 'certTitle',
       displayName: 'Cert/Details',
-      headerCellClass: vm.highlightFilteredHeader
+      headerCellClass: this.highlightFilteredHeader
+    }, {
+      //todo hide the mondoID
+      field: '_id',
+      displayName: 'mongoID',
+      headerCellClass: this.highlightFilteredHeader
     }, {
       name: 'delete',
       maxWidth: 35,
@@ -176,43 +190,46 @@ function GridCtrl($scope, uiGridConstants, $http, RowEditor, eduCtrl) {
       enableSorting: false,
       enableColumnMenu: false,
       cellTemplate: 'app/grid/delete-button.html'
-    }, ]
+    },]
   };
 
-  vm.deleteRow = function(row) {
-    var index = vm.gridOptions.data.indexOf(row.entity);
-    vm.gridOptions.data.splice(index, 1);
-  };
-
-  vm.deleteSelected = function() {
-    angular.forEach(vm.gridApi.selection.getSelectedRows(), function(data, index) {
-      vm.gridOptions.data.splice(vm.gridOptions.data.lastIndexOf(data), 1);
-    });
-  }
-
-  vm.addRow = function(){
-    var newEdu = {
-        "id" : "0"
-    };
-    var rowTmp = {};
-    rowTmp.entity = newEdu;
-    vm.editRow($scope.vm.gridOptions, rowTmp);
-  }
-
-/*  vm.gridOptions.onRegisterApi = function(gridApi) {
+  this.gridOptions.onRegisterApi = function (gridApi) {
     //set gridApi on scope
-    vm.gridApi = gridApi;
-    gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+    this.gridApi = gridApi;
+    this.gridApi.selection.on.rowSelectionChanged($scope, function (row) {
       var msg = 'row selected ' + row.isSelected;
-      $log.log(msg);
+      console.log(msg);
     });
 
 
-    gridApi.selection.on.rowSelectionChangedBatch($scope, function(rows) {
+    this.gridApi.selection.on.rowSelectionChangedBatch($scope, function (rows) {
       var msg = 'rows changed ' + rows.length;
-      $log.log(msg);
+      console.log(msg);
     });
-  };*/
+  };
+
+  this.deleteRow = this.Modal.confirm.delete(row => {
+    console.log(row);
+    this.$http.delete(this.group + 's/' + row.entity._id);
+    var index = this.gridOptions.data.indexOf(row.entity);
+    this.gridOptions.data.splice(index, 1);
+  });
+//
+this.deleteSelected = function () {
+  angular.forEach(this.gridApi.selection.getSelectedRows(), function (data, index) {
+    this.gridOptions.data.splice(this.gridOptions.data.lastIndexOf(data), 1);
+  });
+}
+
+this.addRow = function () {
+  var newRecord = {
+    "id": "0"
+  };
+  var rowTmp = {};
+  rowTmp.entity = newRecord;
+  this.editRow(this.gridOptions, rowTmp);
+}
+
 }
 
 

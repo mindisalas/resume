@@ -41,6 +41,7 @@ angular.module('resumeApp')
            * @param  {All}           - any additional args are passed straight to del callback
            */
           return function () {
+            console.log("i am in the returned value for Modal.confirm.delete");
             var args = Array.prototype.slice.call(arguments),
               name = args.shift(),
               deleteModal;
