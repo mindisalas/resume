@@ -13,27 +13,16 @@ angular.module('resumeApp')
 
   .controller('educationController', educationController)
 
-function educationController($stateParams, $http, $scope, socket, Modal) {
+
+function educationController($stateParams, $http, $scope, socket, Modal, gridParms, educationParms) {
   this.$http = $http;
   this.socket = socket;
   this.educationList = [];
   this.education = {};
+  this.gridParms = gridParms;
+  this.gridParms.parms = educationParms.parms;
   //get all the records
 
-  /*          this.myData = [
-   {
-   "institution": "Advanced Auto Parts",
-   "fieldOfStudy": "3633 S 9th St",
-   "fsStartDate": "Salina",
-   "fsFinishDate": "KS",
-   "certTitle": "67401"
-   }, {
-   "institution": "Arrow Speed Shop",
-   "fieldOfStudy": "686 S Adams",
-   "fsStartDate": "Kansas City",
-   "fsFinishDate": "KS",
-   "certTitle": "66105"
-   } ];*/
 
   this.$http.get('/api/educations')
     .then(response => {
@@ -49,13 +38,6 @@ function educationController($stateParams, $http, $scope, socket, Modal) {
     this.$http.delete('/api/educations/' + education._id);
   });
 
-  this.showEduX = function (edu) {
-    this.$http.get('/api/educations/' + edu._id)
-      .then(response => {
-        this.education = response.data;
-      });
-    Modal.edit.editShow(this.education);
-  };
   this.showEdu = Modal.edit.editShow(education => {
     if (education._id) {
       this.$http.put('/api/educations/' + education._id, education);
@@ -98,10 +80,6 @@ function educationController($stateParams, $http, $scope, socket, Modal) {
       }
     }
   });
-  /*          (edu => {
-   this.$http.get('/api/educations/' + edu._id)
-   .then(response => {this.education=response.data;});
-   });*/
   this.updateEdu = function (edu) {
     if (edu._id) {
       this.$http.put('/api/educations/' + edu._id, edu);
@@ -124,21 +102,35 @@ function educationController($stateParams, $http, $scope, socket, Modal) {
     }
 
   };
-  /*          this.look = Modal.test.test1();
-   console.info("this.openModal");
-   console.log(this.openModal);
-
-   /!*function(edu) {
-   this.education = edu;
-   this.whot = confirm('got it');
-   console.log(this.education);
-
-   console.log("modal.test.test1 results: " + " end2");
-   };*!/!*/
-
 
   console.info($stateParams);
 };
+
+/*
+
+  function updateEdu(edu) {
+  if (edu._id) {
+    this.$http.put('/api/educations/' + edu._id, edu);
+    console.log("updateEdu");
+  } else {
+    if (edu.institution) {
+      console.log("edu.institution " + edu.institution);
+      console.log(edu);
+      this.$http.post('/api/educations', {
+        institution: edu.institution,
+        fieldOfStudy: edu.fieldOfStudy,
+        fsStartDate: edu.fsStartDate,
+        fsFinishDate: edu.fsFinishDate,
+        certTitle: edu.certTitle,
+        sortOrder: edu.sortOrder
+
+      });
+      console.log("got into post");
+    }
+  } }
+*/
+
+/*};*/
 
 
 

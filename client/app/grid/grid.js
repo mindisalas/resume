@@ -13,82 +13,25 @@ angular.module('resumeApp')
 //GridCtrl.$inject = ['$http', '$scope', 'socket', 'uiGridConstants', 'RowEditor'];
 
 
-function GridCtrl($http, $scope, socket, uiGridConstants, RowEditor, Modal) {
+function GridCtrl($http, $scope, socket, uiGridConstants, RowEditor, Modal, gridParms) {
   this.$http = $http;
   this.socket = socket;
   this.editRow = RowEditor.editRow;
   this.Modal = Modal;
-  this.group = '/api/education';
-  this.type = 'education'
+  this.parms = gridParms.parms;
+
+  this.endPoint = this.parms.endPoint; //xDRY - pass the url for the collection as the group variable
+  this.endPointPluralized = this.parms.endPointPluralized; //xDRY - pass the url for the collection as the group variable
+  this.type = this.parms.endPointType; //xDRY - pass the collection name for the export filename - 'type' + Book.csv
+  this.columnDefs = this.parms.columnDefs;
+//
 
   //get list of education entries for the grid
-  // this.$http.get('/api/educations')
-  this.$http.get(this.group + 's')
+  // this.$http.get('/api/'collection-s' ')
+  this.$http.get(this.endPointPluralized)
     .then(response => {
       this.gridOptions.data = response.data;
     });
-
-  /*  this.educationList = [{
-   "institution": "Advanced Auto Parts",
-   "fieldOfStudy": "3633 S 9th St",
-   "fsStartDate": "Salina",
-   "fsFinishDate": "KS",
-   "certTitle": "67401"
-   }, {
-   "institution": "Arrow Speed Shop",
-   "fieldOfStudy": "686 S Adams",
-   "fsStartDate": "Kansas City",
-   "fsFinishDate": "KS",
-   "certTitle": "66105"
-   }, {
-   "institution": "Carl Quiroga",
-   "fieldOfStudy": "10990 Roe Ave",
-   "fsStartDate": "Overland Park",
-   "fsFinishDate": "KS",
-   "certTitle": "66211"
-   }, {
-   "institution": "E Q Muffler",
-   "fieldOfStudy": "1002 Kansas St",
-   "fsStartDate": "Great Bend",
-   "fsFinishDate": "KS",
-   "certTitle": "67530"
-   }, {
-   "institution": "Extended Outage Verification Test",
-   "fieldOfStudy": "10990 Roe Ave",
-   "fsStartDate": "Overland Park",
-   "fsFinishDate": "KS",
-   "certTitle": "66211"
-   }, {
-   "institution": "Fred Fisher",
-   "fieldOfStudy": "80 S Yucca Path",
-   "fsStartDate": "Garden City",
-   "fsFinishDate": "KS",
-   "certTitle": "66538"
-   }, {
-   "institution": "Heinen True Value",
-   "fieldOfStudy": "307 Main",
-   "fsStartDate": "Seneca",
-   "fsFinishDate": "KS",
-   "certTitle": "66538"
-   }, {
-   "institution": "Keystone Automotive Midwest",
-   "fieldOfStudy": "90 Shawnee Ave",
-   "fsStartDate": "Kansas City",
-   "fsFinishDate": "KS",
-   "certTitle": "66105"
-   }, {
-   "institution": "Keystone Automotive Rail",
-   "fieldOfStudy": "Marketing",
-   "fsStartDate": "Kansas City",
-   "fsFinishDate": "KS",
-   "certTitle": "66105"
-   }, {
-   "institution": "Lane's Company",
-   "fieldOfStudy": "10990 Roe Ave",
-   "fsStartDate": "Overland Park",
-   "fsFinishDate": "KS",
-   "certTitle": "66211"
-   } ];*/
 
   this.highlightFilteredHeader = function (row, rowRenderIndex, col, colRenderIndex) {
     if (col.filters[0].term) {
@@ -147,50 +90,11 @@ function GridCtrl($http, $scope, socket, uiGridConstants, RowEditor, Modal) {
     },
     exporterPdfOrientation: 'portrait',
     exporterPdfPageSize: 'LETTER',
-    exporterPdfMaxGridWidth: 500,
+    exporterPdfMaxWidth: 500,
     enableFiltering: true,
-    /*    data: this.educationList,*/
-    /*   data: educationController.educationList,*/
+    /*    data: this.$http.get*/
     showGridFooter: true,
-    columnDefs: [{
-      name: 'modify',
-      maxWidth: 35,
-      displayName: '',
-      enableFiltering: false,
-      enableSorting: false,
-      enableColumnMenu: false,
-      cellTemplate: 'app/grid/edit-button.html'
-    }, {
-      field: 'institution',
-      headerCellClass: this.highlightFilteredHeader
-    }, {
-      field: 'fieldOfStudy',
-      headerCellClass: this.highlightFilteredHeader
-    }, {
-      field: 'fsStartDate',
-      headerCellClass: this.highlightFilteredHeader
-    }, {
-      field: 'fsFinishDate',
-      displayName: 'Finish Date',
-      headerCellClass: this.highlightFilteredHeader
-    }, {
-      field: 'certTitle',
-      displayName: 'Cert/Details',
-      headerCellClass: this.highlightFilteredHeader
-    }, {
-      //todo hide the mondoID
-      field: '_id',
-      displayName: 'mongoID',
-      headerCellClass: this.highlightFilteredHeader
-    }, {
-      name: 'delete',
-      maxWidth: 35,
-      displayName: '',
-      enableFiltering: false,
-      enableSorting: false,
-      enableColumnMenu: false,
-      cellTemplate: 'app/grid/delete-button.html'
-    },]
+    columnDefs: this.columnDefs,
   };
 
   this.gridOptions.onRegisterApi = function (gridApi) {
@@ -210,27 +114,26 @@ function GridCtrl($http, $scope, socket, uiGridConstants, RowEditor, Modal) {
 
   this.deleteRow = this.Modal.confirm.delete(row => {
     console.log(row);
-    this.$http.delete(this.group + 's/' + row.entity._id);
+    this.$http.delete(this.endPointPluralized + '/' + row.entity._id);
     var index = this.gridOptions.data.indexOf(row.entity);
     this.gridOptions.data.splice(index, 1);
   });
 //
-this.deleteSelected = function () {
-  angular.forEach(this.gridApi.selection.getSelectedRows(), function (data, index) {
-    this.gridOptions.data.splice(this.gridOptions.data.lastIndexOf(data), 1);
-  });
+  this.deleteSelected = function () {
+    angular.forEach(this.gridApi.selection.getSelectedRows(), function (data, index) {
+      this.gridOptions.data.splice(this.gridOptions.data.lastIndexOf(data), 1);
+    });
+  }
+
+  this.addRow = function (updateFn) {
+    console.log("gridjs.addRow.updateFn")
+    console.log(updateFn);
+    var newRecord = {
+      "id": "0"
+    };
+    var rowTmp = {};
+    rowTmp.entity = newRecord;
+    this.editRow(this.gridOptions, rowTmp, updateFn);
+  }
+
 }
-
-this.addRow = function () {
-  var newRecord = {
-    "id": "0"
-  };
-  var rowTmp = {};
-  rowTmp.entity = newRecord;
-  this.editRow(this.gridOptions, rowTmp);
-}
-
-}
-
-
-

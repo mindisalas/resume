@@ -4,7 +4,9 @@
   width:90%;
   margin:2em auto;
 }
-
+.grid {
+  height: 300px;
+}
 .header-filtered {
   color: blue;
 }

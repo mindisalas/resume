@@ -7,7 +7,8 @@ var EducationSchema = new mongoose.Schema({
   fieldOfStudy: String,
   fsStartDate: String,
   fsFinishDate: String,
-  certTitle: String
+  certTitle: String,
+  sortOrder: Number
 });
 
 export default mongoose.model('Education', EducationSchema);

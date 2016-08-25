@@ -10,3 +10,4 @@ angular.module('resumeApp')
         controllerAs: 'gridCtrl'
       })
   })
+  .value('gridParms', {"parms": {"alpha": "asta"}});

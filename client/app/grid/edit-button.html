@@ -1,5 +1,6 @@
-<div class="ui-grid-cell-contents">
-  <button class="btn btn-xs btn-icon btn-primary" uib-tooltip="Edit" tooltip-placement="right" ng-click="grid.appScope.gridOpt.editRow(grid, row)">
+<div class="ui-grid-cell-contents" ng-controller="educationController as eduCtrl">
+  <button class="btn btn-xs btn-icon btn-primary" uib-tooltip="Edit" tooltip-placement="right"
+          ng-click="grid.appScope.gridOpt.editRow(grid, row, eduCtrl.updateEdu)">
     <span class="glyphicon glyphicon-edit">
     </span>
   </button>

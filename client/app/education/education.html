@@ -1,9 +1,9 @@
 <div class="container" xmlns="http://www.w3.org/1999/html">
 
-  <div class="row hidden">
+ <!-- <div class="row hidden">
     <div class="col-lg-12">
       <h1 class="page-header">Education:</h1>
-      <ul class="nav nav-tabs" ng-repeat="education in eduCtrl.educationList">
+      <ul class="nav nav-tabs" ng-repeat="education in eduCtrl.educationList | orderBy:'sortOrder'">
         <li class="nav-item">
           <a ui-sref="education({educationId: education._id})" uib-tooltip="{{education.fieldOfStudy}}">{{education.institution}}
             <button type="button" class="glyphicon glyphicon-edit" ng-click="eduCtrl.showEdu(education)"></button>
@@ -12,7 +12,7 @@
           </a>
         </li>
       </ul>
-    </div>
+    </div>-->
     <!--<div>-->
 
     <!--<li>institution: {{eduCtrl.education.institution}}</li>-->
@@ -20,12 +20,11 @@
     <!--<li>fsStartDate: {{eduCtrl.education.fsStartDate}}</li>-->
     <!--<li>fsFinishDate: {{eduCtrl.education.fsFinishDate}}</li>-->
     <!--<li>certTitle: {{eduCtrl.education.certTitle}}</li>-->
-    <button type="button" class="update" ng-click="eduCtrl.showEdu({})">Add</button>
+    <!--<button type="button" class="update" ng-click="eduCtrl.showEdu({})">Add</button>-->
     <!--</div>-->
     <!--<div modal="showModal">modal</div>-->
 
-    <br>
-    <br>
+
     <form class="education-form hidden">
       <label>Add a new Education Entry:</label>
       <p class="input-group">
@@ -48,7 +47,7 @@
     <div class="panel-heading">
       <h3 class="panel-title pull-left">Education List</h3>
       <button class="btn btn-xs btn-icon btn-success pull-right" uib-tooltip="Add Record" tooltip-placement="right"
-              ng-click="gridOpt.addRow()">
+              ng-click="gridOpt.addRow(eduCtrl.updateEdu)">
           <span class="glyphicon glyphicon-plus">
           </span>
       </button>
@@ -57,7 +56,7 @@
     <div class="panel-body">
       <div class="row">
         <div class="col-sm-4">
-          <button type="button" class="btn btn-success" ng-disabled="!gridOpt.gridApi.grid.options.multiSelect"
+          <button type="button" class="btn btn-success" ng-disabled="gridOpt.gridApi.grid.options.multiSelect"
                   ng-click="gridOpt.selectAll()">Select All
           </button>
           <button type="button" uib-tooltip="Clear All" class="btn btn-success" ng-click="gridOpt.clearAll()">Clear All
@@ -65,7 +64,7 @@
         </div>
       </div>
     </div>
-    <div ui-grid="gridOpt.gridOptions" ui-grid-selection ui-grid-exporter class="grid"></div>
+    <div ui-grid="gridOpt.gridOptions" ui-grid-selection ui-grid-exporter ui-grid-edit class="grid"></div>
   </div>
 </div>
 
