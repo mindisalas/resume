@@ -24,6 +24,7 @@ function GridCtrl($http, $scope, socket, uiGridConstants, RowEditor, Modal, grid
   this.endPointPluralized = this.parms.endPointPluralized; //xDRY - pass the url for the collection as the group variable
   this.type = this.parms.endPointType; //xDRY - pass the collection name for the export filename - 'type' + Book.csv
   this.columnDefs = this.parms.columnDefs;
+
 //
 
   //get list of education entries for the grid
@@ -113,7 +114,6 @@ function GridCtrl($http, $scope, socket, uiGridConstants, RowEditor, Modal, grid
   };
 
   this.deleteRow = this.Modal.confirm.delete(row => {
-    console.log(row);
     this.$http.delete(this.endPointPluralized + '/' + row.entity._id);
     var index = this.gridOptions.data.indexOf(row.entity);
     this.gridOptions.data.splice(index, 1);
@@ -125,15 +125,13 @@ function GridCtrl($http, $scope, socket, uiGridConstants, RowEditor, Modal, grid
     });
   }
 
-  this.addRow = function (updateFn) {
-    console.log("gridjs.addRow.updateFn")
-    console.log(updateFn);
+  this.addRow = function () {
     var newRecord = {
       "id": "0"
     };
     var rowTmp = {};
     rowTmp.entity = newRecord;
-    this.editRow(this.gridOptions, rowTmp, updateFn);
+    this.editRow(this.gridOptions, rowTmp);
   }
 
 }

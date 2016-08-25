@@ -47,7 +47,7 @@ angular.module('resumeApp')
         enableFiltering: false,
         enableSorting: false,
         enableColumnMenu: false,
-        cellTemplate: 'app/grid/edit-button.html'
+        cellTemplate: 'components/grid/edit-button.html'
       },
         //xDRY - columnDefs array - 'fields' need to be passed in some how (perhaps with all variables in the array)
         {
@@ -78,7 +78,7 @@ angular.module('resumeApp')
           enableFiltering: false,
           enableSorting: false,
           enableColumnMenu: false,
-          cellTemplate: 'app/grid/delete-button.html'
+          cellTemplate: 'components/grid/delete-button.html'
         },],
       //
       'form': [

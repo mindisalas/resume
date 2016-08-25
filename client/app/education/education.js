@@ -28,11 +28,7 @@ function educationController($stateParams, $http, $scope, socket, Modal, gridPar
     .then(response => {
       this.educationList = response.data;
       this.socket.syncUpdates('education', this.educationList);
-      console.info("StatParams: (eduCtrl)");
-      console.dir($stateParams);
-      console.info("Education (eduCtrl) = ");
-      console.dir(this.educationList);
-      console.log(this.educationList)
+
     });
   this.deleteEdu = Modal.confirm.delete(education => {
     this.$http.delete('/api/educations/' + education._id);
@@ -41,7 +37,7 @@ function educationController($stateParams, $http, $scope, socket, Modal, gridPar
   this.showEdu = Modal.edit.editShow(education => {
     if (education._id) {
       this.$http.put('/api/educations/' + education._id, education);
-      console.log(education);
+
     } else {
       if (education.institution) {
         this.$http.post('/api/educations', {
@@ -62,7 +58,7 @@ function educationController($stateParams, $http, $scope, socket, Modal, gridPar
   this.addEdu = Modal.edit.editShow(education => {
     if (education._id) {
       this.$http.put('/api/educations/' + education._id, education);
-      console.log(education);
+
     } else {
       if (education.institution) {
         this.$http.post('/api/educations', {
@@ -83,7 +79,7 @@ function educationController($stateParams, $http, $scope, socket, Modal, gridPar
   this.updateEdu = function (edu) {
     if (edu._id) {
       this.$http.put('/api/educations/' + edu._id, edu);
-      console.log(edu);
+
     } else {
       if (edu.institution) {
         this.$http.post('/api/educations', {
@@ -103,34 +99,5 @@ function educationController($stateParams, $http, $scope, socket, Modal, gridPar
 
   };
 
-  console.info($stateParams);
 };
-
-/*
-
-  function updateEdu(edu) {
-  if (edu._id) {
-    this.$http.put('/api/educations/' + edu._id, edu);
-    console.log("updateEdu");
-  } else {
-    if (edu.institution) {
-      console.log("edu.institution " + edu.institution);
-      console.log(edu);
-      this.$http.post('/api/educations', {
-        institution: edu.institution,
-        fieldOfStudy: edu.fieldOfStudy,
-        fsStartDate: edu.fsStartDate,
-        fsFinishDate: edu.fsFinishDate,
-        certTitle: edu.certTitle,
-        sortOrder: edu.sortOrder
-
-      });
-      console.log("got into post");
-    }
-  } }
-*/
-
-/*};*/
-
-
 

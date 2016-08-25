@@ -41,7 +41,6 @@ angular.module('resumeApp')
            * @param  {All}           - any additional args are passed straight to del callback
            */
           return function () {
-            console.log("i am in the returned value for Modal.confirm.delete");
             var args = Array.prototype.slice.call(arguments),
               name = args.shift(),
               deleteModal;
@@ -69,8 +68,6 @@ angular.module('resumeApp')
             }, 'modal-danger');
 
             deleteModal.result.then(function (event) {
-              console.log(del);
-              console.log(args);
               del.apply(event, args);
             });
           };
@@ -180,16 +177,6 @@ angular.module('resumeApp')
             }, 'modal-primary');
 
             lookModal.result.then(function (event) {
-              console.info("name using dir:");
-              console.dir(name);
-              console.info("name using log:");
-              console.log(name);
-              console.info("name.fieldOfStudy");
-              console.log(name.fieldOfStudy);
-              console.info("del");
-              console.log(del);
-              console.info("args");
-              console.log(args);
               //del.apply(event, args);
             });
           };
