@@ -17,8 +17,8 @@ function onConnect(socket) {
   });
 
   // Insert sockets below
-  require('../api/thing/thing.socket').register(socket);
   require('../api/education/education.socket').register(socket);
+  require('../api/skill/skill.socket').register(socket);
 
 }
 

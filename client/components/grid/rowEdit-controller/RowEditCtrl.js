@@ -12,7 +12,7 @@ function RowEditor($rootScope, $uibModal) {
 
   function editRow(grid, row) {
     $uibModal.open({
-      templateUrl: 'app/grid/edit-modal.html',
+      templateUrl: 'components/grid/edit-modal.html',
       controller: ['$scope', '$uibModalInstance', 'grid', 'row', '$http', 'gridParms', RowEditCtrl],
       controllerAs: 'editRow',
       resolve: {

@@ -2,7 +2,7 @@
   <div class="container">
     <h1>Resume for Mindi Salas</h1>
     <p class="lead">IT Professional with 30 years of experience</p>
-    <img src="assets\images\mcrosmall8.png" alt="eMerge">
+<!--    <img src="assets\images\mcrosmall8.png" alt="eMerge">-->
   </div>
 </header>
 
@@ -26,7 +26,15 @@
       </span>
     </p>
   </form>-->
-
+  <div class="row">
+    <div class="col-lg-12">
+      <h2 class="page-header">Skills:<button class ="btn btn-success pull-right" ui-sref="skill">edit skills</button></h2>
+      <!--todo if user = admin then ui-sref="education" for "Edit Education button-->
+      <ul class="nav nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="skill in $ctrl.skillList |orderBy:'-sortOrder'" ng-if="skill.sortOrder > 9">
+        <li uib-tooltip="{{skill.institution}}"><strong>{{skill.institution}} </strong></li>
+      </ul>
+    </div>
+  </div>
   <div class="row">
     <div class="col-lg-12">
       <h2 class="page-header">Education:<button class ="btn btn-success pull-right" ui-sref="education">edit edu</button></h2>
