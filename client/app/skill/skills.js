@@ -5,7 +5,7 @@ angular.module('resumeApp')
     $stateProvider
       .state('skill', {
         url: '/skill/:skillId',
-        templateUrl: 'app/skill/skill.html',
+        templateUrl: 'components/grid/grid.html',
         controllerAs: 'skillCtrl',
         controller: skillController
       })

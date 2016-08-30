@@ -29,9 +29,28 @@
   <div class="row">
     <div class="col-lg-12">
       <h2 class="page-header">Skills:<button class ="btn btn-success pull-right" ui-sref="skill">edit skills</button></h2>
-      <!--todo if user = admin then ui-sref="education" for "Edit Education button-->
+      <!--todo if user = admin then ui-sref="skill" for "Edit Skills button-->
       <ul class="nav nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="skill in $ctrl.skillList |orderBy:'-sortOrder'" ng-if="skill.sortOrder > 9">
         <li uib-tooltip="{{skill.institution}}"><strong>{{skill.institution}} </strong></li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <h2 class="page-header">Professional Experience:<button class ="btn btn-success pull-right" ui-sref="job">edit exp</button></h2>
+      <!--todo if user = admin then ui-sref="job" for "Edit Jobs button-->
+      <ul class="nav nav-stacked" ng-repeat="job in $ctrl.jobList |orderBy:'-sortOrder'" ng-if="job.sortOrder > 9">
+        <li uib-tooltip="{{job.companyName}}"><strong>{{job.companyName}} </strong> - {{job.coStartDate}} to {{job.coFinishDate}} - {{job.companyInfo}}
+          <br>
+          <ul ng-repeat="jobTitle in job.jobTitle">
+          {{jobTitle.jobTitleName}}
+          <br>
+            <ul class="col-sm-12" ng-repeat="acc in jobTitle.jobTitleAccomplishments">
+              <!--<span class="glyphicon glyphicon-ok col-sm-offset-1 col-sm-1"></span>-->
+              <li class="col-sm-10 col-md-offset-1">{{acc}}</li>
+            </ul>
+          </ul>
+        </li>
       </ul>
     </div>
   </div>

@@ -11,8 +11,8 @@ export default function(app) {
   // Insert routes below
   app.use('/api/educations', require('./api/education'));
   app.use('/api/skills', require('./api/skill'));
-  // app.use('/api/jobs', require('./api/job'));
-  // app.use('/api/personInfos', require('./api/personInfo'));
+  app.use('/api/jobs', require('./api/job'));
+  app.use('/api/personInfos', require('./api/personInfo'));
   app.use('/api/users', require('./api/user'));
 
   app.use('/auth', require('./auth').default);

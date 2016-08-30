@@ -1,33 +1,28 @@
-<!--ng-controller="GridCtrl as gridOpt">-->
+<div class="container" xmlns="http://www.w3.org/1999/html">
 
-
-<div class="panel panel-primary" ng-controller="GridCtrl as gridOpt">
-  <div class="panel-heading">
-    <h3 class="panel-title pull-left">Education List</h3>
-    <button class="btn btn-xs btn-icon btn-success pull-right" uib-tooltip="Add Record" tooltip-placement="right"
-            ng-click="gridOpt.addRow()">
+  <div class="panel panel-primary" ng-controller="GridCtrl as gridOpt">
+    <div class="panel-heading">
+      <h3 class="panel-title pull-left">Skills List</h3>
+      <button class="btn btn-xs btn-icon btn-success pull-right" uib-tooltip="Add Record" tooltip-placement="right"
+              ng-click="gridOpt.addRow()">
           <span class="glyphicon glyphicon-plus">
           </span>
-    </button>
-    <div class="clearfix"></div>
-  </div>
-  <div class="panel-body">
-    <div class="row">
-      <div class="col-sm-4">
-        <button type="button" class="btn btn-success" ng-disabled="!gridOpt.gridApi.grid.options.multiSelect"
-                ng-click="gridOpt.selectAll()">Select All
-        </button>
-        <button type="button" uib-tooltip="Clear All" class="btn btn-success" ng-click="gridOpt.clearAll()">Clear All
-        </button>
-      </div>
-      <!--          <div class="col-sm-offset-6 col-sm-2">
-                <button type="button" id="addRow" class="btn btn-success" ng-click="gridOpt.addRow()">Add Record</button>
-                </div>
-      -->
+      </button>
+      <div class="clearfix"></div>
     </div>
-
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-sm-4">
+          <button type="button" class="btn btn-success" ng-disabled="gridOpt.gridApi.grid.options.multiSelect"
+                  ng-click="gridOpt.selectAll()">Select All
+          </button>
+          <button type="button" uib-tooltip="Clear All" class="btn btn-success" ng-click="gridOpt.clearAll()">Clear All
+          </button>
+        </div>
+      </div>
+    </div>
+    <div ui-grid="gridOpt.gridOptions" ui-grid-selection ui-grid-exporter ui-grid-edit class="grid"></div>
   </div>
-  <div ui-grid="gridOpt.gridOptions" ui-grid-selection ui-grid-exporter class="grid"></div>
-  <!--<div ui-grid="{data: gridOpt.myData}" class="grid"></div>-->
 </div>
+
 

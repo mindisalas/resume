@@ -34,8 +34,11 @@ function RowEditCtrl($scope, $uibModalInstance, grid, row, $http, gridParms) {
   this.schema = gridParms.parms.formSchema; //xDRY pass in as variable
   this.entity = angular.copy(row.entity);
   this.parms = gridParms.parms;
+  console.log("gridParms.parms");
+  console.dir(this.parms)
   //todo - add form validation
   this.form = this.parms.form; //xDRY move the edit form array to another file and pass in as variable
+  console.log(this.form);
   this.endPoint = this.parms.endPoint; //xDRY - pass the url for the collection as the group variable
   this.endPointPluralized = this.parms.endPointPluralized; //xDRY - pass the url for the collection as the group variable
   this.save = save;
